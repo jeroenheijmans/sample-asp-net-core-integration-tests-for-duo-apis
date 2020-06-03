@@ -11,11 +11,11 @@ namespace SampleDuoApis.FooApi
         private readonly ILogger<BarService> logger;
         private readonly HttpClient httpClient;
 
-        public BarService(ILogger<BarService> logger, HttpClient httpClient)
+        public BarService(ILogger<BarService> logger, HttpClient httpClient, BarOptions barOptions)
         {
             this.logger = logger;
             this.httpClient = httpClient;
-            this.httpClient.BaseAddress = new Uri("http://localhost:5000");
+            this.httpClient.BaseAddress = new Uri(barOptions.ApiBaseAddress);
         }
 
         public async Task<BeerDto> GetRandomBeer()
