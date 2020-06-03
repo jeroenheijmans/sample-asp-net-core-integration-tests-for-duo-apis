@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace SampleDuoApis.FooApi.Tests
 {
@@ -21,9 +22,18 @@ namespace SampleDuoApis.FooApi.Tests
             fooApiBuilder
                 .ConfigureTestServices(services =>
                 {
+                    // In the normal Startup, the BarService is registered as a 
+                    // "typed" HttpClient, using AddHttpClient. This effectively
+                    // registers the service as "Transient" with a special factory
+                    // for the HttpClient (that reuses pooled Message Handlers for
+                    // improved sockets pooling). We can't easily "overwrite" the
+                    // provided HttpClient for that service, so we just completely
+                    // manually construct the BarService for tests:
                     var barClient = BarApiServer.CreateClient();
-                    services.AddSingleton<HttpClient>(barClient);
-                    services.AddSingleton(new BarOptions { ApiBaseAddress = barClient.BaseAddress.ToString() });
+                    services.AddTransient<BarService>(provider => new BarService(
+                        provider.GetRequiredService<ILogger<BarService>>(),
+                        barClient
+                    ));
                 });
         }
     }
