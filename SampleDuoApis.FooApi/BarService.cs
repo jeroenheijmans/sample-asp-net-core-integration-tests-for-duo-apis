@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
@@ -15,6 +16,12 @@ namespace SampleDuoApis.FooApi
         {
             this.logger = logger;
             this.httpClient = httpClient;
+        }
+
+        public async Task<BeerDto[]> GetAllBeersInRandomOrder()
+        {
+            var allBeers = await httpClient.Get<BeerDto[]>("/beers");
+            return allBeers.OrderBy(_ => Guid.NewGuid()).ToArray();
         }
 
         public async Task<BeerDto> GetRandomBeer()
