@@ -7,7 +7,7 @@ Demonstrates how to run integration tests with one API calling another API.
 The main magic, and purpose of this repository, is in running the tests.
 
 ```sh
-dotnet test SampleDuoApis.FooApi.Tests/SampleDuoApis.FooApi.Tests.csproj
+dotnet test
 ```
 Output should be along these lines:
 
@@ -15,23 +15,11 @@ Output should be along these lines:
 Starting test execution, please wait...
 
 A total of 1 test files matched the specified pattern.
-info: Microsoft.Hosting.Lifetime[0]
-      Application started. Press Ctrl+C to shut down.
-info: Microsoft.Hosting.Lifetime[0]
-      Hosting environment: Development
-info: Microsoft.Hosting.Lifetime[0]
-      Content root path: /home/jeroen/git/prive/sample-asp-net-core-integration-tests-for-duo-apis/SampleDuoApis.FooApi
-info: SampleDuoApis.FooApi.RandomBeerController[0]
-      Being asked for a random beer
-info: SampleDuoApis.FooApi.BarService[0]
-      Randomly picked id to retrieve beef for: fw
-info: SampleDuoApis.FooApi.RandomBeerController[0]
-      Randomly picked beer with id: fw
 
 Test Run Successful.
-Total tests: 1
-     Passed: 1
- Total time: 1.1207 Seconds
+Total tests: 2
+     Passed: 2
+ Total time: 2,0962 Seconds
 ```
 
 This is _magical_ because it:
