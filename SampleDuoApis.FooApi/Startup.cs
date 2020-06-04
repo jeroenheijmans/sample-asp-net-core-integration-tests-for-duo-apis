@@ -27,7 +27,7 @@ namespace SampleDuoApis.FooApi
             services.AddControllers();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app)
         {
             app.UseRouting();
             app.UseEndpoints(e => e.MapControllers());
